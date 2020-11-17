@@ -5,8 +5,15 @@ Display CPU usage on Pi Sense Hat, with a nice dot line
 # How ?
 Using psutil to get cpu usage in percent,
 each second, it will display a dot base on the usage percent.
+## Lines
 From line 0 to 7, where 0 is the upper line and equal to 100% cpu usage;
 and 7 the bottom line for <12.5% of cpu usage
+## Columns
+Logically, one column equal one second (see "Anything special" below)
+## Brightness
+The brightness of the LED follows the percent value.
+So 100% cpu usage will be on the top line and at max bright,
+and low usage will be on bottom with low light.
 
 # Anything special ?
 As psutil wasn't returning a value each second request,
