@@ -1,2 +1,4 @@
 # MyPi-SenseHat-cpu
-Display CPU/RAM with a nice dot line on your sense hat
+Display CPU usage on Pi Sense Hat, with a nice dot line
+
+# Pictures
