@@ -22,3 +22,8 @@ I just had to code : "display a dot only if you have a value, so wait for it". W
 Resulting in a complete dot line with no space. Wonderful.
 
 # Pictures
+
+
+-------------------------------------
+### Give support ! ( a chocolat viennois break | help me get sensors and Raspberry hardware)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E79JA29LBLTAE&source=url)
