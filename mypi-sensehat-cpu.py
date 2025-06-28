@@ -1,66 +1,60 @@
-#!/usr/bin/env python
-#coding=utf-8
+#!/usr/bin/env python3
+############################################ mpsm : MyPiSensehatMonsters
 #
-#*	MyPi-SenseHat-cpu
-#*	https://github.com/framboise-pi/MyPi-SenseHat-cpu
-#*	Copyright(C) 2020 Cedric Camille Lafontaine http://www.framboise-pi.fr,
-#*	version 0.0.1
+#	Copyright(C) LAFONTAINE CÃ©dric Camille 2025
+#	contact@codelibre.fr
+#	https://github.com/framboise-pi/MyPi-SenseHat-cpu/blob/master/mypi-sensehat-cpu.py
 #
-
+#           _        _ _ _             ___
+#  ___ ___ _| |___   | |_| |_ ___ ___  |  _|___
+# |  _| . | . | -_|  | | | . |  _| -_|_|  _|  _|
+# |___|___|___|___|  |_|_|___|_| |___|_|_| |_|
+#
+# ASCII art generator: http://patorjk.com/software/taag/
+#
+########################################################################
+# USAGE EXAMPLE:
+# python3 mypi-sensehat-cpu.py
+########################################################################
 from sense_hat import SenseHat
-import random
-from random import randint
 import psutil
 import time
 
-global tour
-
-tour = 0
 sense = SenseHat()
-sense.rotation = 270
+sense.rotation = 0
 sense.low_light = True
 sense.clear()
-
+tour = 0
+DELAY_SEC = 2
 print("...starting SenseHat cpu script...")
-#psutil.virtual_memory().percent
 
-def PixelCpu(tour,cpu_load):
-	red = [255,0,0]
-	y = 0
+def PixelCpu(cpu_load):
+	global tour
+	if tour > 7:
+		tour = 0
+		sense.clear()
 	percent = int(cpu_load)
-	if (percent <= 12):
-		y = 7
-		red[0] = 100
-	if (percent > 12 and percent <= 25):
-		y = 6
-		red[0] = 120
-	if (percent > 25 and percent <= 37):
-		y = 5
-		red[0] = 140
-	if (percent > 37 and percent <= 40):
-		y = 4
-		red[0] = 160
-	if (percent > 40 and percent <= 52):
-		y = 3
-		red[0] = 180
-	if (percent > 52 and percent <= 65):
-		y = 2
-		red[0] = 200
-	if (percent > 65 and percent <= 77):
-		y = 1
-		red[0] = 220
-	if (percent > 77 and percent <= 100):
-		y = 0
-	#debug
-	#print ("cpu_load:",percent,"tour:",tour,"pixel h:",y)
-	sense.set_pixel(tour,y,red)
-
+	thresholds = [
+		(0, 12, 7, 100),
+		(12, 25, 6, 120),
+		(25, 37, 5, 140),
+		(37, 40, 4, 160),
+		(40, 52, 3, 180),
+		(52, 65, 2, 200),
+		(65, 77, 1, 220),
+		(77, 100, 0, 255)
+	]
+	y = None
+	for lower, upper, y_value, red_value in thresholds:
+		if lower < percent <= upper:
+			if red_value is not None and int(y_value):
+				red = (red_value,0,0)
+				sense.set_pixel(tour,y_value,red)
+				tour += 1
+				# DEBUG print ("cpu_load:",percent,"tour:",tour,"pixel y:",y_value)
+	
 while True:
 	cpu_load = psutil.cpu_percent()
-	if (cpu_load is not None):
-		if (tour >= 7):
-			sense.clear()
-			tour = 0
-		else: tour = tour + 1
-		PixelCpu(tour,cpu_load)
-		time.sleep(1)
+	if float(cpu_load):
+		PixelCpu(cpu_load)
+		time.sleep(DELAY_SEC)
