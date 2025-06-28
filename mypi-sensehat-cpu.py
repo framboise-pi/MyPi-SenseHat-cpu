@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-############################################ mpsm : MyPiSensehatCPU
+############################################ mypi-sensehat-cpu.py
 #
-#	Copyright(C) LAFONTAINE CÃ©dric Camille 2025
+#	Copyright(C) LAFONTAINE Cedric Camille 2025
 #	contact@codelibre.fr
 #	https://github.com/framboise-pi/MyPi-SenseHat-cpu/blob/master/mypi-sensehat-cpu.py
 #
