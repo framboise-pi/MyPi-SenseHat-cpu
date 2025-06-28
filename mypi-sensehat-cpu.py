@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-############################################ mpsm : MyPiSensehatMonsters
+############################################ mpsm : MyPiSensehatCPU
 #
 #	Copyright(C) LAFONTAINE CÃ©dric Camille 2025
 #	contact@codelibre.fr
